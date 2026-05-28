@@ -1,6 +1,3 @@
-# Created a new variable named pairs and assigned it to an empty list.
-# Within the function I appended the looped parts[0]. Returned it. And printed it. 
-
 with open('sentiment_log.txt', 'r') as lines:
 	text = lines.readlines() # To get multiple lines use readlines instead of read.
 
@@ -12,7 +9,7 @@ def code_block():
 
 	for line in text:
 		parts = line.split('|')
-		pairs.append(parts[0])
+		pairs.append(parts[0].strip())
 		if 'Bullish' in parts[1]:
 			count_buy += 1
 		if 'Bearish' in parts[1]:
@@ -41,8 +38,7 @@ def display_summary(count_buy, count_neutral, count_sell, pairs):
 
 display_summary(count_buy, count_neutral, count_sell, pairs)
 
-
-# Output: 
+# Output:
 --- Trade Log Summary ---
 Total Entries: 3
 
@@ -50,6 +46,5 @@ Bullish: 2
 Neutral: 1
 Bearish: 0 
 
-['GBPUSD ', 'EURUSD ', 'USDCHF '] (These spaces should be removed)
+['GBPUSD', 'EURUSD', 'USDCHF'] # .strip() - removed the empty spaces.
 Most common sentiment: Bullish
-
