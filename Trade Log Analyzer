@@ -27,7 +27,7 @@ def display_summary(count_buy, count_neutral, count_sell, pairs):
 	print('\nBullish:', count_buy)
 	print('Neutral:', count_neutral)
 	print('Bearish:', count_sell, '\n')
-	print(pairs)
+	print(f'Pairs Logged: {pairs}')
 
 	if count_buy > count_sell and count_neutral:
 		print('Most common sentiment: Bullish')
@@ -37,14 +37,3 @@ def display_summary(count_buy, count_neutral, count_sell, pairs):
 		print('Most common sentiment: Neutral')
 
 display_summary(count_buy, count_neutral, count_sell, pairs)
-
-# Output:
---- Trade Log Summary ---
-Total Entries: 3
-
-Bullish: 2
-Neutral: 1
-Bearish: 0 
-
-['GBPUSD', 'EURUSD', 'USDCHF'] # .strip() - removed the empty spaces.
-Most common sentiment: Bullish
