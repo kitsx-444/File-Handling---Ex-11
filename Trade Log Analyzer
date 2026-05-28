@@ -1,4 +1,4 @@
-# Count works now
+# Added most common sentiment. But one issue is that only one pair is printed.
 
 with open('sentiment_log.txt', 'r') as lines:
 	text = lines.readlines() # To get multiple lines use readlines instead of read.
@@ -10,23 +10,31 @@ def code_block():
 
 	for line in text:
 		parts = line.split('|')
+		pairs_logged = parts[0]
 		if 'Bullish' in parts[1]:
 			count_buy += 1
 		if 'Bearish' in parts[1]:
 			count_sell += 1
 		if 'Neutral' in parts[1]:
 			count_neutral += 1
-	return count_buy, count_sell, count_neutral # You return multiple variables with a comma
 
-count_buy, count_sell, count_neutral = code_block() 
-# You can create a variable using the comma to store multiple return variables.
-That's called tuple unpacking; when a function returns multiple values, you can catch them all in one line.
+	return count_buy, count_sell, count_neutral, pairs_logged
 
-def display_summary(count_buy, count_neutral, count_sell):
+count_buy, count_sell, count_neutral, pairs_logged = code_block()
+
+def display_summary(count_buy, count_neutral, count_sell, pairs_logged):
 	print('--- Trade Log Summary ---')
 	print('Total Entries:', len(text)) # len(text). Since text is a list of lines, len() gives you the count.
 	print('\nBullish:', count_buy)
 	print('Neutral:', count_neutral)
 	print('Bearish:', count_sell, '\n')
+	print(pairs_logged)
 
-display_summary(count_buy, count_neutral, count_sell)
+	if count_buy > count_sell and count_neutral:
+		print('Most common sentiment: Bullish')
+	elif count_sell > count_buy and count_neutral:
+		print('Most common sentiment: Bearish')
+	elif count_neutral > count_buy and count_sell:
+		print('Most common sentiment: Neutral')
+
+display_summary(count_buy, count_neutral, count_sell, pairs_logged)
