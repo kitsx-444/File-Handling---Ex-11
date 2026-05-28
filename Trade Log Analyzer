@@ -1,4 +1,5 @@
-# Added most common sentiment. But one issue is that only one pair is printed.
+# Created a new variable named pairs and assigned it to an empty list.
+# Within the function I appended the looped parts[0]. Returned it. And printed it. 
 
 with open('sentiment_log.txt', 'r') as lines:
 	text = lines.readlines() # To get multiple lines use readlines instead of read.
@@ -7,10 +8,11 @@ def code_block():
 	count_buy = 0
 	count_neutral = 0
 	count_sell = 0
+	pairs = []
 
 	for line in text:
 		parts = line.split('|')
-		pairs_logged = parts[0]
+		pairs.append(parts[0])
 		if 'Bullish' in parts[1]:
 			count_buy += 1
 		if 'Bearish' in parts[1]:
@@ -18,17 +20,17 @@ def code_block():
 		if 'Neutral' in parts[1]:
 			count_neutral += 1
 
-	return count_buy, count_sell, count_neutral, pairs_logged
+	return count_buy, count_sell, count_neutral, pairs
 
-count_buy, count_sell, count_neutral, pairs_logged = code_block()
+count_buy, count_sell, count_neutral, pairs = code_block()
 
-def display_summary(count_buy, count_neutral, count_sell, pairs_logged):
+def display_summary(count_buy, count_neutral, count_sell, pairs):
 	print('--- Trade Log Summary ---')
 	print('Total Entries:', len(text)) # len(text). Since text is a list of lines, len() gives you the count.
 	print('\nBullish:', count_buy)
 	print('Neutral:', count_neutral)
 	print('Bearish:', count_sell, '\n')
-	print(pairs_logged)
+	print(pairs)
 
 	if count_buy > count_sell and count_neutral:
 		print('Most common sentiment: Bullish')
@@ -37,4 +39,17 @@ def display_summary(count_buy, count_neutral, count_sell, pairs_logged):
 	elif count_neutral > count_buy and count_sell:
 		print('Most common sentiment: Neutral')
 
-display_summary(count_buy, count_neutral, count_sell, pairs_logged)
+display_summary(count_buy, count_neutral, count_sell, pairs)
+
+
+# Output: 
+--- Trade Log Summary ---
+Total Entries: 3
+
+Bullish: 2
+Neutral: 1
+Bearish: 0 
+
+['GBPUSD ', 'EURUSD ', 'USDCHF '] (These spaces should be removed)
+Most common sentiment: Bullish
+
