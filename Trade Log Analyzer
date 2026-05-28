@@ -1,36 +1,32 @@
-# Thoughts. THe counter is adding one but it isnt checking if it is in parts[1] of the txt after strip. 
-When I placed the for loop for parts[0] it is only printing eurusd twice where is gbpusd?
+# Count works now
 
 with open('sentiment_log.txt', 'r') as lines:
 	text = lines.readlines() # To get multiple lines use readlines instead of read.
 
-for line in text:
-	parts = line.split('|')
-
 def code_block():
-
 	count_buy = 0
 	count_neutral = 0
 	count_sell = 0
-	if 'Bullish' in parts[1]:
-		count_buy += 1
-	if 'Bearish' in parts[1]:
-		count_sell += 1
-	if 'Neutral' in parts[1]:
-		count_neutral += 1
-	return count_buy
 
+	for line in text:
+		parts = line.split('|')
+		if 'Bullish' in parts[1]:
+			count_buy += 1
+		if 'Bearish' in parts[1]:
+			count_sell += 1
+		if 'Neutral' in parts[1]:
+			count_neutral += 1
+	return count_buy, count_sell, count_neutral # You return multiple variables with a comma
 
-count_buy = code_block()
-count_sell = code_block()
-count_neutral = code_block()
+count_buy, count_sell, count_neutral = code_block() 
+# You can create a variable using the comma to store multiple return variables.
+That's called tuple unpacking; when a function returns multiple values, you can catch them all in one line.
 
-def display_summary():
+def display_summary(count_buy, count_neutral, count_sell):
 	print('--- Trade Log Summary ---')
 	print('Total Entries:', len(text)) # len(text). Since text is a list of lines, len() gives you the count.
 	print('\nBullish:', count_buy)
 	print('Neutral:', count_neutral)
 	print('Bearish:', count_sell, '\n')
-	for line in text:
-		print(f'Pairs Logged: {parts[0]}')
-display_summary()
+
+display_summary(count_buy, count_neutral, count_sell)
